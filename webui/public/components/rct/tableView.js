@@ -8,6 +8,8 @@ import bTableHeader from './table/b_fields/b-header.js';
 import bRow from './table/b_fields/b-row.js';
 import flagHeader from './table/flags/flag-header.js';
 import flagRow from './table/flags/flag-row.js';
+import mcRow from './table/mc/mc-row.js';
+import mcHeader from './table/mc/mc-header.js';
 
 function periods(model) {
     return h('div',
@@ -37,6 +39,13 @@ function flags(model) {
     );
 }
 
+function mc(model) {
+    return h('div',
+        mcHeader(() => model.changeRecordsVisibility()),
+        model.RCTdataFetched ? model.RCTCurentContent.map(item => mcRow(model, item)) : 'loading data'
+    );
+}
+
 export default function RCTTableView(model) {
     return h('div.p3', h('table.table', {id: 'data-table'}, [
 
@@ -49,6 +58,7 @@ export default function RCTTableView(model) {
                 runs: runs(model),
                 bfields: bFields(model),
                 flags: flags(model),
+                mc: mc(model),
             })
         ])
     ]))

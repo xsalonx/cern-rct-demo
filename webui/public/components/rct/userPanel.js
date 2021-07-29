@@ -16,7 +16,7 @@ const menu = (model) => h('.mySidebar.flex-column.bg-gray-lighter', [
     button('RCT Home page', (e) => {handleClick(model, e); model.reqServerForRCTHomepage();}, '', '?page=periods'),
     button('Runs', (e) => {handleClick(model, e); model.reqServerForRuns();}, '', '?page=runs'),
     button('B fields', (e) => {handleClick(model, e); model.reqServerForBFields();}, '', '?page=bfields'),
-    button('MC', (e) => {handleClick(model, e); model.reqServerForMC();}, '', '?page=mc'),
+    button('MC', (e) => {handleClick(model, e); model.reqServerForMc();}, '', '?page=mc'),
     button('Flags', (e) => {handleClick(model, e); model.reqServerForFlags();}, '', '?page=flags'),
     
     button('Period view', () => {return undefined;}),
