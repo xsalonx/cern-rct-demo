@@ -100,6 +100,18 @@ export default class ModelLogged extends Observable {
         this.reqServerForData('/api/RCTRuns');
     }
 
+    async reqServerForFlags(){
+        this.reqServerForData('/api/RCTflags');
+    }
+
+    async reqServerForMc(){
+        this.reqServerForData('/api/RCTmc');
+    }
+
+    async reqServerForBFields() {
+        this.reqServerForData('/api/RCTbfields');
+    }
+
     async logout() {
         const response = await fetchClient('/api/logout', {
             method: 'POST',

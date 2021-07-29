@@ -7,10 +7,6 @@ async function select(client, command) {
     return res;
 }
 
-async function queryPrep(req, res) {
-
-}
-
 class PGCommunicator {
     constructor(httpserver, loggedUsers, log) {
         console.assert(httpserver !== null);
@@ -59,64 +55,52 @@ class PGCommunicator {
             res.json({type: 'err', data: 'NOUSER'});
         }
     }
-    #RCTHomepage(req, res) {
 
+    async #execQuery(req, res, query) {
         const body = req.body;
-        const clientData = this.loggedUsers.tokenToUsrData[req.query.token];
-
-        if (clientData) {
-            const confClient = {
-                user: clientData.username,
-                host: 'localhost',
-                database: clientData.dbName,
-                password: clientData.password,
-                port: 5432,
+            const clientData = this.loggedUsers.tokenToUsrData[req.query.token];
+    
+            if (clientData) {
+                const confClient = {
+                    user: clientData.username,
+                    host: 'localhost',
+                    database: clientData.dbName,
+                    password: clientData.password,
+                    port: 5432,
+                }
+                const client = new Client(confClient);
+    
+                select(client, query)
+                    .then(sqlRes => {
+                        res.json({type: 'res', data: sqlRes.rows});
+                    }).catch(e => {
+                    res.json({type: 'err', data: e.code});
+                })
+            } else {
+                console.log('invalid token or no such user')
+                res.json({type: 'err', data: 'invalid token or no such user'});
             }
-            const client = new Client(confClient);
+    }
 
-            select(client, 'SELECT * from periods;')
-                .then(sqlRes => {
-                    res.json({type: 'res', data: sqlRes.rows});
-                }).catch(e => {
-                res.json({type: 'err', data: e.code});
-            })
-        } else {
-            console.log('invalid token or no such user')
-            res.json({type: 'err', data: 'invalid token or no such user'});
-        }
+    #RCTHomepage(req, res) {
+        this.#execQuery(req, res, 'SELECT * from periods;');
     }
 
     #RCTRuns(req, res) {
-        const body = req.body;
-        const clientData = this.loggedUsers.tokenToUsrData[req.query.token];
-
-        if (clientData) {
-            const confClient = {
-                user: clientData.username,
-                host: 'localhost',
-                database: clientData.dbName,
-                password: clientData.password,
-                port: 5432,
-            }
-            const client = new Client(confClient);
-
-            select(client, 'SELECT * from runs;')
-                .then(sqlRes => {
-                    res.json({type: 'res', data: sqlRes.rows});
-                }).catch(e => {
-                res.json({type: 'err', data: e.code});
-            })
-        } else {
-            console.log('invalid token or no such user')
-            res.json({type: 'err', data: 'invalid token or no such user'});
-        }
+        this.#execQuery(req, res, 'SELECT * from runs;');
     }
     
-    /*
     #RCTflags(req, res) {
-
+        this.#execQuery(req, res, 'SELECT * from flags;');
     }
-    */
+
+    #RCTbfields(req, res) {
+        this.#execQuery(req, res, 'SELECT * from b_fields;');
+    }
+
+    #RCTmc(req, res) {
+        this.#execQuery(req, res, 'SELECT * from mc;');
+    }
 
     bindLogging(name) {
         this.httpserver.post(name, (req, res) => this.#login(req, res));
@@ -124,12 +108,21 @@ class PGCommunicator {
     bindLogout(name) {
         this.httpserver.post(name, (req, res) => this.#logout(req, res));
     }
+
     bindRCTHomepage(name) {
         this.httpserver.post(name, (req, res) => this.#RCTHomepage(req, res));
     }
-
     bindRCTRuns(name) {
         this.httpserver.post(name, (req, res) => this.#RCTRuns(req, res));
+    }
+    bindRCTmc(name) {
+        this.httpserver.post(name, (req, res) => this.#RCTmc(req, res));
+    }
+    bindRCTflags(name) {
+        this.httpserver.post(name, (req, res) => this.#RCTflags(req, res));
+    }
+    bindRCTbfields(name) {
+        this.httpserver.post(name, (req, res) => this.#RCTbfields(req, res));
     }
 
 }
