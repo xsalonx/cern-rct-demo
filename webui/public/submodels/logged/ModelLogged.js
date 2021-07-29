@@ -8,7 +8,7 @@ export default class ModelLogged extends Observable {
 
         this.hideMarkedRecords = false;
         this.contentVisibility = {
-            RCTHomepageVisible: false
+            RCTHomepageVisible: true,
         }
         this.currentContent = null;
 
@@ -34,7 +34,7 @@ export default class ModelLogged extends Observable {
             break;
           default:
             // default route, replace the current one not handled
-            this.router.go('?page=periods', true);
+            //this.router.go('?page=periods', true);
             break;
         }
       }
@@ -67,8 +67,8 @@ export default class ModelLogged extends Observable {
         }
     }
 
-    async reqServerForRCTHomepage(){
-        const response = await fetchClient('/api/RCTHomepage', {
+    async reqServerForData(path) {
+        const response = await fetchClient(path, {
             method: 'POST',
             headers: {'Content-type': 'application/json; charset=UTF-8'},
         });
@@ -87,6 +87,14 @@ export default class ModelLogged extends Observable {
             this.RCTdataFetched = true;
         }
         this.notify();
+    }
+
+    async reqServerForRCTHomepage(){
+        this.reqServerForData('/api/RCTHomepage');
+    }
+
+    async reqServerForRuns(){
+        this.reqServerForData('/api/RCTRuns');
     }
 
     async logout() {
@@ -115,27 +123,6 @@ export default class ModelLogged extends Observable {
     async filter(id, year, period, beam, energy, bField, statistics) {
         //
     }
-
-    async reqServerForRCTFilter(){
-        const response = await fetchClient('/api/RCTfilter', {
-            method: 'POST',
-            headers: {'Content-type': 'application/json; charset=UTF-8'},
-        });
-        const content = await response.json()
-        const status = response.status;
-        this.parent._tokenExpirationHandler(status);
-
-        if (content.type === 'err') {
-            console.log(content.data);
-            alert('err', content.data);
-        } else {
-            this.RCTCurentContent = content.data.map(item => {
-                item.marked = false;
-                return item;
-            });
-            this.RCTdataFetched = true;
-        }
-        this.notify();
-    }
     */
+
 }
