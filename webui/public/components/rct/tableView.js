@@ -4,6 +4,8 @@ import tableHeader from './table/header.js';
 import row from './table/row.js';
 import runTableHeader from './table/runs/run-header.js';
 import runRow from './table/runs/run-row.js';
+import bTableHeader from './table/b_fields/b-header.js';
+import bRow from './table/b_fields/b-row.js';
 
 function periods(model) {
     return h('div',
@@ -19,6 +21,13 @@ function runs(model) {
     );
 }
 
+function bFields(model) {
+    return h('div',
+        bTableHeader(() => model.changeRecordsVisibility()),
+        model.RCTdataFetched ? model.RCTCurentContent.map(item => bRow(model, item)) : 'loading data'
+    );
+}
+
 export default function RCTTableView(model) {
     return h('div.p3', h('table.table', {id: 'data-table'}, [
 
@@ -29,6 +38,7 @@ export default function RCTTableView(model) {
             switchCase(model.router.params.page, {
                 periods: periods(model),
                 runs: runs(model),
+                bfields: bFields(model),
             })
         ])
     ]))

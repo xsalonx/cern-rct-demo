@@ -15,8 +15,10 @@ const menu = (model) => h('.mySidebar.flex-column.bg-gray-lighter', [
 
     button('RCT Home page', (e) => {handleClick(model, e); model.reqServerForRCTHomepage();}, '', '?page=periods'),
     button('Runs', (e) => {handleClick(model, e); model.reqServerForRuns();}, '', '?page=runs'),
-    button('Item 2', (e) => handleClick(model, e), '', '?page=item&id=2'),
-    button('Item 3', (e) => handleClick(model, e), '', '?page=item&id=3'),
+    button('B fields', (e) => {handleClick(model, e); model.reqServerForBFields();}, '', '?page=bfields'),
+    button('MC', (e) => {handleClick(model, e); model.reqServerForMC();}, '', '?page=mc'),
+    button('Flags', (e) => {handleClick(model, e); model.reqServerForFlags();}, '', '?page=flags'),
+    
     button('Period view', () => {return undefined;}),
     button('Period view', () => {return undefined;}),
     button('Runs per period view', () => {return undefined;}),
@@ -37,7 +39,7 @@ export default function userPanel(model) {
             // content
             h('.flex-grow.relative', [
                 h('.scroll-y.absolute-fill.bg-white', {id: 'main-content'}, [
-                    model.contentVisibility.RCTHomepageVisible ? RCTHomepage(model) : h('h4.primary', 'click on "Show data" button'),
+                    model.contentVisibility.RCTHomepageVisible ? RCTHomepage(model) : h('h4.primary', 'click on "Show/hide ..." button'),
                 ])
             ])
         ])
