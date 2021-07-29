@@ -11,12 +11,10 @@ function handleClick(model, e) {
 
 const menu = (model) => h('.mySidebar.flex-column.bg-gray-lighter', [
     h(goodBadOpt('button.btn.p2.m2', ['.btn-success'], ['.btn-primary'], [!model.RCTHomepageVisible]),
-    {id: 'RCT-main-show-btn', onclick: e => {model.reqServerForRCTHomepage(); model.showHideRCTHomepage();}}, 'Load RCT Homepage'), ' ',
-    h(goodBadOpt('button.btn.p2.m2', ['.btn-success'], ['.btn-primary'], [!model.RCTHomepageVisible]),
-    {id: 'RCT-main-show-btn', onclick: e => model.reqServerForRuns()}, 'Load RCT Runs'), ' ',
-    
-    button('RCT Home page', (e) => handleClick(model, e), '', '?page=periods'),
-    button('Runs', (e) => handleClick(model, e), '', '?page=item&id=1'),
+    {id: 'RCT-main-show-btn', onclick: e => model.showHideRCTHomepage()}, 'Show/hide RCT Homepage'), ' ',
+
+    button('RCT Home page', (e) => {handleClick(model, e); model.reqServerForRCTHomepage();}, '', '?page=periods'),
+    button('Runs', (e) => {handleClick(model, e); model.reqServerForRuns();}, '', '?page=runs'),
     button('Item 2', (e) => handleClick(model, e), '', '?page=item&id=2'),
     button('Item 3', (e) => handleClick(model, e), '', '?page=item&id=3'),
     button('Period view', () => {return undefined;}),

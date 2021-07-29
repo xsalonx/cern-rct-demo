@@ -5,7 +5,7 @@ export default function RCTHomepage(model) {
     return h('.homePage', [
             h('h1.title', switchCase(model.router.params.page, {
                 periods: 'RCT Homepage',
-                item: 'Runs per period',
+                runs: 'Runs per period',
             })),
             h('div.tableDiv', []),
             RCTTableView(model)

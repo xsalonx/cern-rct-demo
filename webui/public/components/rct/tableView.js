@@ -28,7 +28,7 @@ export default function RCTTableView(model) {
         h('tbody', {id: 'periods-table-body'}, [
             switchCase(model.router.params.page, {
                 periods: periods(model),
-                item: runs(model),
+                runs: runs(model),
             })
         ])
     ]))

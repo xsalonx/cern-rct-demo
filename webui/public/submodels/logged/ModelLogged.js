@@ -32,6 +32,9 @@ export default class ModelLogged extends Observable {
           case 'item':
             // call some ajax to load item this.router.params.id
             break;
+          case 'runs':
+            // sth
+            break;
           default:
             // default route, replace the current one not handled
             //this.router.go('?page=periods', true);

@@ -7,6 +7,10 @@ async function select(client, command) {
     return res;
 }
 
+async function queryPrep(req, res) {
+
+}
+
 class PGCommunicator {
     constructor(httpserver, loggedUsers, log) {
         console.assert(httpserver !== null);
@@ -107,6 +111,12 @@ class PGCommunicator {
             res.json({type: 'err', data: 'invalid token or no such user'});
         }
     }
+    
+    /*
+    #RCTflags(req, res) {
+
+    }
+    */
 
     bindLogging(name) {
         this.httpserver.post(name, (req, res) => this.#login(req, res));
