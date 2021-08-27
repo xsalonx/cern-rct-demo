@@ -5,8 +5,7 @@ import viewButton from '../common/viewButton.js';
 import home from "./home.js";
 import rctDataView from "./rctData/rctDataView.js";
 import sidebar from "./sidebar.js";
-
-
+import modal from "../common/modal.js";
 
 export default function userPanel(model) {
     const url = model.router.getUrl();
@@ -16,7 +15,7 @@ export default function userPanel(model) {
         h('.flex-grow.flex-row', [
             // sidebar
             sidebar(model),
-            
+            modal('Title', 'Content'),
             // content
             h('.flex-grow.relative', [
                 h('.scroll-y.absolute-fill.bg-white', {id: 'main-content'}, [

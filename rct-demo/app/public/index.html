@@ -36,6 +36,12 @@
 		// Expose model to interact with it the browser's console
 		window.model = model;
 
+		window.onclick = function(event) {
+  			if (event.target == document.getElementById('myModal')) {
+    			document.getElementById('myModal').style.display = "none";
+  			}
+		}
+
 		// TODO
 		if (sessionStorage.hasOwnProperty('token') && sessionStorage.token !== 'null') {
 			model.controlServerRequest();

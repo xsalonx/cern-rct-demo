@@ -14,7 +14,7 @@
 
 import userPanel from './components/rct/userPanel.js';
 import loggingSite from './components/loggingSite.js';
- 
+
 // The view
 export default function view(model) {
     return model.mode === "mLogged" ? userPanel(model.mLogged) : loggingSite(model.mUnlogged);
