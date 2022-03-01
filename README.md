@@ -14,3 +14,4 @@ Przygotowana [prezentacja](https://prezi.com/view/wTK4nNo1div9sAN68kqF).
 | [basic-examples](https://github.com/xsalonx/cern-rct-demo/tree/master/basic-examples) | przykłady bardzo prostych aplikacji realizujących elementarne funkcjonalności |
 | [crud](https://github.com/xsalonx/cern-rct-demo/tree/master/crud) | instrukcja jak krok po kroku stworzyć aplikację realizującą operacje CRUD |
 | [rct-demo](https://github.com/xsalonx/cern-rct-demo/tree/master/rct-demo) | bardziej rozbudowana aplikacja będąca wstępnym wyobrażeniem o docelowej aplikacji |
+| [mocks](https://github.com/xsalonx/cern-rct-demo/tree/master/mocks) | przegląd wykorzystywanych narzędzi |
